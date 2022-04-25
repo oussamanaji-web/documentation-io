@@ -46,7 +46,8 @@ class CreateAppsTable extends Migration
             $table->text('casDescription')->nullable();
             $table->string('frontTitle')->nullable();
             $table->text('frontDescription')->nullable();
-            $table->longText('frontSourceCode')->nullable();
+            $table->longText('frontSourceCodeHtml')->nullable();
+            $table->longText('frontSourceCodeJs')->nullable();
             $table->string('frontEdition')->nullable();
             $table->string('backTitle')->nullable();
             $table->text('backDescription')->nullable();

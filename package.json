@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "react-html-parser": "^2.0.2",
+        "vue-code-highlight": "^0.7.8",
         "vue-router": "^3.5.3"
     }
 }

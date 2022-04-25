@@ -6,6 +6,7 @@ import API from "./documentations/API";
 import CasUtilisation from "./documentations/CasUtilisation";
 import ComposantFrontal from "./documentations/ComposantFrontal";
 import ServiceBackend from "./documentations/ServiceBackend";
+import VueCodeHighlight from "vue-code-highlight";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -18,6 +19,7 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 Vue.use(VueRouter);
 
+Vue.use(VueCodeHighlight);
 
 /**
  * The following block of code may be used to automatically register your

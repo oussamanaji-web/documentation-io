@@ -9,13 +9,28 @@
             </div>
             <div class="mb-3">
                 <label for="Description" class="form-label">Description</label>
-                <textarea class="form-control" v-model="form.frontDescription" id="Description" placeholder="Description"
+                <textarea class="form-control" v-model="form.frontDescription" id="Description"
+                          placeholder="Description"
                           rows="3"></textarea>
             </div>
             <div class="mb-3">
-                <label for="frontSourceCode" class="form-label">Code Source</label>
-                <textarea class="form-control" v-model="form.frontSourceCode" id="frontSourceCode" placeholder="Code Source"
+                <label for="frontSourceCodeHtml" class="form-label">Code Source (HTML)</label>
+                <textarea class="form-control" v-model="form.frontSourceCodeHtml" id="frontSourceCodeHtml"
+                          placeholder="Code Source (HTML)"
                           rows="6"></textarea>
+            </div>
+            <code-highlight language="html">{{ form.frontSourceCodeHtml }}</code-highlight>
+
+            <div class="mb-3">
+                <label for="frontSourceCodeJs" class="form-label">Code Source (JS)</label>
+                <textarea class="form-control" v-model="form.frontSourceCodeJs" id="frontSourceCodeJs"
+                          placeholder="Code Source (JS)"
+                          rows="6"></textarea>
+            </div>
+            <code-highlight language="javascript">{{ form.frontSourceCodeJs }}</code-highlight>
+            <div class="mb-3">
+                <div style="background-color: rgba(166,251,166,0.40); padding: 15px; border-radius: 5px"
+                     v-html="form.frontSourceCodeHtml + form.frontSourceCodeJs"></div>
             </div>
             <div class="mb-3">
                 <label for="edition" class="form-label">Édition</label>
@@ -43,27 +58,35 @@
 </template>
 
 <script>
+import CodeHighlight from "vue-code-highlight/src/CodeHighlight.vue";
+import "vue-code-highlight/themes/duotone-sea.css";
+import "vue-code-highlight/themes/window.css";
+
 export default {
     name: "ComposantFrontal",
     props: {
         documentation: null,
+    },
+    components: {
+        CodeHighlight,
     },
     data() {
         return {
             form: {
                 frontTitle: this.documentation.frontTitle,
                 frontDescription: this.documentation.frontDescription,
-                frontSourceCode: this.documentation.frontSourceCode,
+                frontSourceCodeHtml: this.documentation.frontSourceCodeHtml,
+                frontSourceCodeJs: this.documentation.frontSourceCodeJs,
                 frontEdition: this.documentation.frontEdition,
             },
             status: false,
         }
     },
-    methods : {
+    methods: {
         submitForm() {
             axios.post(`/api/submit/documentation/${this.documentation.id}`, this.form)
                 .then((response) => {
-                    if(response.status === 200){
+                    if (response.status === 200) {
                         this.status = response.data.status;
                         setTimeout(() => {
                             this.status = false;
@@ -79,14 +102,18 @@ export default {
 .form-control {
     font-size: 16px;
 }
+
 .slide-fade-enter-active {
     transition: all .3s ease;
 }
+
 .slide-fade-leave-active {
     transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
+
 .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active below version 2.1.8 */ {
+    /* .slide-fade-leave-active below version 2.1.8 */
+{
     transform: translateX(10px);
     opacity: 0;
 }
